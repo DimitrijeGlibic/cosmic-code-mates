@@ -1,6 +1,6 @@
-
-port { useEffect } from "react";
-import { Homepage } from "@/components/Homepage";port { Feed } from "@/components/Feed";
+import { useEffect } from "react";
+import { Homepage } from "@/components/Homepage";
+import { Feed } from "@/components/Feed";
 import { GitHubLogin } from "@/components/GitHubLogin";
 import { useGitHub } from "@/lib/GitHubProvider";
 
