@@ -4,7 +4,8 @@ import { UserCard } from "@/components/UserCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { StarCTA } from "@/components/StarCTA";
 import { useGitHub } from "@/lib/GitHubProvider";
-import { Github, Rocket, LogOut, RefreshCw, Sparkles } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu } from "lucide-react";
 
 export function Feed() {
   const { user, developers, isLoading, logout, refreshDevelopers } = useGitHub();
@@ -75,25 +76,81 @@ export function Feed() {
 
               {/* Right - Controls */}
               <div className="flex items-center space-x-3">
-                <StarCTA />
-                <ThemeToggle />
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={handleRefresh}
-                  disabled={isLoading}
-                  className="transition-cosmic"
-                >
-                  {isLoading ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <RefreshCw className="w-4 h-4" />
-                  )}
-                </Button>
-                <Button variant="ghost" size="sm" onClick={handleLogout}>
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Logout
-                </Button>
+                {/* Desktop Controls */}
+                <div className="hidden md:flex items-center space-x-3">
+                  <StarCTA />
+                  <ThemeToggle />
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={handleRefresh}
+                    disabled={isLoading}
+                    className="transition-cosmic"
+                  >
+                    {isLoading ? (
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <RefreshCw className="w-4 h-4" />
+                    )}
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={handleLogout}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+
+                {/* Mobile Menu */}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="sm" className="md:hidden">
+                      <Menu className="w-4 h-4" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-72">
+                    <div className="flex flex-col space-y-6 mt-8">
+                      <div className="flex items-center space-x-3 pb-4 border-b">
+                        <span className="text-muted-foreground">Welcome,</span>
+                        <span className="font-semibold">{user.name || user.login}</span>
+                        <span className="text-xl">👋</span>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Theme</span>
+                          <ThemeToggle />
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Support us</span>
+                          <StarCTA />
+                        </div>
+                        
+                        <Button 
+                          variant="ghost" 
+                          className="w-full justify-start transition-cosmic"
+                          onClick={handleRefresh}
+                          disabled={isLoading}
+                        >
+                          {isLoading ? (
+                            <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                          ) : (
+                            <RefreshCw className="w-4 h-4 mr-2" />
+                          )}
+                          {isLoading ? "Scanning galaxy..." : "Refresh"}
+                        </Button>
+                        
+                        <Button 
+                          variant="ghost" 
+                          className="w-full justify-start text-destructive hover:text-destructive"
+                          onClick={handleLogout}
+                        >
+                          <LogOut className="w-4 h-4 mr-2" />
+                          Logout
+                        </Button>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
               </div>
             </div>
           </div>

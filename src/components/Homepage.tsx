@@ -5,7 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { StarCTA } from "@/components/StarCTA";
-import { Github, Star, Rocket, Users } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Github, Star, Rocket, Users, Menu } from "lucide-react";
 import heroGalaxy from "@/assets/hero-galaxy.jpg";
 
 interface HomepageProps {
@@ -44,10 +45,37 @@ export function Homepage({ onLogin }: HomepageProps) {
           </div>
           
           <div className="flex items-center space-x-3">
-            <StarCTA />
-            <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-              <ThemeToggle />
+            {/* Desktop Controls */}
+            <div className="hidden md:flex items-center space-x-3">
+              <StarCTA />
+              <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+                <ThemeToggle />
+              </div>
             </div>
+
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="md:hidden">
+                  <Menu className="w-4 h-4" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-72">
+                <div className="flex flex-col space-y-6 mt-8">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Theme</span>
+                      <ThemeToggle />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Support us</span>
+                      <StarCTA />
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </header>
 
