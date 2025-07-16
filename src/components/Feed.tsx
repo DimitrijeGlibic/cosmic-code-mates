@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserCard } from "@/components/UserCard";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { StarCTA } from "@/components/StarCTA";
 import { useGitHub } from "@/lib/GitHubProvider";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu, Settings, User } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/ThemeProvider";
+import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu, Settings, User, Moon, Sun } from "lucide-react";
 
 export function Feed() {
   const { user, developers, isLoading, logout, refreshDevelopers } = useGitHub();
+  const { theme, setTheme } = useTheme();
 
   if (!user) {
     return null; // This shouldn't happen as the component is only rendered when authenticated
@@ -114,12 +116,18 @@ export function Feed() {
                         </div>
                       </div>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="flex items-center justify-between">
+                      <DropdownMenuItem 
+                        className="flex items-center justify-between"
+                        onSelect={(e) => e.preventDefault()}
+                      >
                         <span className="flex items-center">
-                          <Settings className="w-4 h-4 mr-2" />
-                          Theme
+                          {theme === 'dark' ? <Moon className="w-4 h-4 mr-2" /> : <Sun className="w-4 h-4 mr-2" />}
+                          Dark Mode
                         </span>
-                        <ThemeToggle />
+                        <Switch
+                          checked={theme === 'dark'}
+                          onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                        />
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
@@ -154,8 +162,14 @@ export function Feed() {
                       
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium">Theme</span>
-                          <ThemeToggle />
+                          <span className="text-sm font-medium flex items-center">
+                            {theme === 'dark' ? <Moon className="w-4 h-4 mr-2" /> : <Sun className="w-4 h-4 mr-2" />}
+                            Dark Mode
+                          </span>
+                          <Switch
+                            checked={theme === 'dark'}
+                            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                          />
                         </div>
                         
                         <div className="flex items-center justify-between">
