@@ -114,7 +114,7 @@ class GitHubAPI {
 
     // Convert to StackmatesUser and sort by shared repos count
     const result: StackmatesUser[] = Array.from(similarUsers.values())
-      .filter(item => item.sharedCount >= 2) // At least 2 shared repos
+      .filter(item => item.sharedCount >= 1) // At least 2 shared repos
       .sort((a, b) => b.sharedCount - a.sharedCount)
       .slice(0, maxUsers)
       .map(item => ({
