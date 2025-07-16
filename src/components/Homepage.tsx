@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Github, Star, Rocket, Users } from "lucide-react";
 import heroGalaxy from "@/assets/hero-galaxy.jpg";
 
@@ -35,6 +36,10 @@ export function Homepage({ onLogin }: HomepageProps) {
             <span className="text-2xl font-bold bg-gradient-cosmic bg-clip-text text-transparent">
               Stackmates
             </span>
+          </div>
+          
+          <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+            <ThemeToggle />
           </div>
         </header>
 

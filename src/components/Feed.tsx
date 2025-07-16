@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserCard } from "@/components/UserCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Github, Rocket, LogOut, RefreshCw, Sparkles } from "lucide-react";
 
 interface FeedProps {
@@ -113,6 +114,7 @@ export function Feed({ user, onLogout }: FeedProps) {
 
               {/* Right - Controls */}
               <div className="flex items-center space-x-3">
+                <ThemeToggle />
                 <Button 
                   variant="ghost" 
                   size="sm" 
