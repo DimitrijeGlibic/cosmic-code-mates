@@ -1,22 +1,36 @@
-# Welcome to your Lovable project
+<p align="center">
+  <b><a href="https://www.tensorzero.com/" target="_blank">Website</a></b>
+</p>
+
+# 🌌 Cosmic Code Mates
+
+
+
+> Discover your dev twin through mutual GitHub stars — personalized, AI-powered social feed for developers.
+
+![til](./intro.gif)
+
+## ✨ What is this?
+
+**Cosmic Code Mates** is a lightweight, social experience built on top of the GitHub API and OpenAI.
+
+Just enter your GitHub Personal Access Token with `read:user` and `public_repo` scopes — your token is stored **locally only** and never sent anywhere.  
+You’ll get a feed of developers who star the same repositories as you, each paired with a short AI-generated description or poem.
+
+
+
+> Think: GitHub meets your cosmic developer horoscope.
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/9b24afbd-c5b1-4943-aaba-7a8956744cf2
+This was one of those **"what if this existed?"** ideas that I just had to build.  
+I vibe-coded most of it using [Lovable](https://lovable.so/) — shoutout to their AI builder, it helped me sketch things out fast.
 
-## How can I edit this code?
+If you’re into the idea and want to help build this into something cool, **PRs and contributions are more than welcome**.  
+Even feedback or feature ideas are appreciated — just open an issue.
 
-There are several ways of editing your application.
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/9b24afbd-c5b1-4943-aaba-7a8956744cf2) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 💻 Local Development
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -24,10 +38,10 @@ Follow these steps:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/DimitrijeGlibic/cosmic-code-mates.git
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd cosmic-code-mates
 
 # Step 3: Install the necessary dependencies.
 npm i
@@ -36,21 +50,7 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+### What technologies are used for this project?
 
 This project is built with:
 
@@ -59,15 +59,3 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/9b24afbd-c5b1-4943-aaba-7a8956744cf2) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
