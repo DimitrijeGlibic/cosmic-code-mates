@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserCard } from "@/components/UserCard";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { StarCTA } from "@/components/StarCTA";
 import { useGitHub } from "@/lib/GitHubProvider";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/ThemeProvider";
+import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu, Settings, User, Moon, Sun } from "lucide-react";
 
 export function Feed() {
   const { user, developers, isLoading, logout, refreshDevelopers } = useGitHub();
+  const { theme, setTheme } = useTheme();
 
   if (!user) {
     return null; // This shouldn't happen as the component is only rendered when authenticated
@@ -67,36 +71,58 @@ export function Feed() {
                 </span>
               </div>
 
-              {/* Center - Welcome message */}
-              <div className="hidden md:flex items-center space-x-3">
-                <span className="text-muted-foreground">Welcome,</span>
-                <span className="font-semibold">{user.name || user.login}</span>
-                <span className="text-xl">👋</span>
-              </div>
-
               {/* Right - Controls */}
               <div className="flex items-center space-x-3">
                 {/* Desktop Controls */}
                 <div className="hidden md:flex items-center space-x-3">
                   <StarCTA />
-                  <ThemeToggle />
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={handleRefresh}
-                    disabled={isLoading}
-                    className="transition-cosmic"
-                  >
-                    {isLoading ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <RefreshCw className="w-4 h-4" />
-                    )}
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={handleLogout}>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Logout
-                  </Button>
+                  
+                  {/* User Avatar Dropdown */}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="p-1 rounded-full">
+                        <Avatar className="w-8 h-8 cursor-pointer">
+                          <AvatarImage src={user.avatar_url} alt={user.name || user.login} />
+                          <AvatarFallback>
+                            {(user.name || user.login).charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48 bg-background border z-50">
+                      <div className="flex items-center space-x-2 p-2">
+                        <Avatar className="w-8 h-8">
+                          <AvatarImage src={user.avatar_url} alt={user.name || user.login} />
+                          <AvatarFallback>
+                            {(user.name || user.login).charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">{user.name || user.login}</span>
+                          <span className="text-xs text-muted-foreground">@{user.login}</span>
+                        </div>
+                      </div>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem 
+                        className="flex items-center justify-between"
+                        onSelect={(e) => e.preventDefault()}
+                      >
+                        <span className="flex items-center">
+                          {theme === 'dark' ? <Moon className="w-4 h-4 mr-2" /> : <Sun className="w-4 h-4 mr-2" />}
+                          Dark Mode
+                        </span>
+                        <Switch
+                          checked={theme === 'dark'}
+                          onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                        />
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
 
                 {/* Mobile Menu */}
@@ -109,15 +135,28 @@ export function Feed() {
                   <SheetContent side="right" className="w-72">
                     <div className="flex flex-col space-y-6 mt-8">
                       <div className="flex items-center space-x-3 pb-4 border-b">
-                        <span className="text-muted-foreground">Welcome,</span>
-                        <span className="font-semibold">{user.name || user.login}</span>
-                        <span className="text-xl">👋</span>
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={user.avatar_url} alt={user.name || user.login} />
+                          <AvatarFallback>
+                            {(user.name || user.login).charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span className="font-semibold">{user.name || user.login}</span>
+                          <span className="text-sm text-muted-foreground">@{user.login}</span>
+                        </div>
                       </div>
                       
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium">Theme</span>
-                          <ThemeToggle />
+                          <span className="text-sm font-medium flex items-center">
+                            {theme === 'dark' ? <Moon className="w-4 h-4 mr-2" /> : <Sun className="w-4 h-4 mr-2" />}
+                            Dark Mode
+                          </span>
+                          <Switch
+                            checked={theme === 'dark'}
+                            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                          />
                         </div>
                         
                         <div className="flex items-center justify-between">
