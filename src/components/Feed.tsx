@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { StarCTA } from "@/components/StarCTA";
 import { useGitHub } from "@/lib/GitHubProvider";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Github, Rocket, LogOut, RefreshCw, Sparkles, Menu } from "lucide-react";
 
 export function Feed() {
@@ -67,13 +68,6 @@ export function Feed() {
                 </span>
               </div>
 
-              {/* Center - Welcome message */}
-              <div className="hidden md:flex items-center space-x-3">
-                <span className="text-muted-foreground">Welcome,</span>
-                <span className="font-semibold">{user.name || user.login}</span>
-                <span className="text-xl">👋</span>
-              </div>
-
               {/* Right - Controls */}
               <div className="flex items-center space-x-3">
                 {/* Desktop Controls */}
@@ -97,6 +91,17 @@ export function Feed() {
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout
                   </Button>
+                  
+                  {/* User Avatar */}
+                  <div className="flex items-center space-x-2 pl-2 border-l border-border/50">
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage src={user.avatar_url} alt={user.name || user.login} />
+                      <AvatarFallback>
+                        {(user.name || user.login).charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium">{user.name || user.login}</span>
+                  </div>
                 </div>
 
                 {/* Mobile Menu */}
@@ -109,9 +114,16 @@ export function Feed() {
                   <SheetContent side="right" className="w-72">
                     <div className="flex flex-col space-y-6 mt-8">
                       <div className="flex items-center space-x-3 pb-4 border-b">
-                        <span className="text-muted-foreground">Welcome,</span>
-                        <span className="font-semibold">{user.name || user.login}</span>
-                        <span className="text-xl">👋</span>
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={user.avatar_url} alt={user.name || user.login} />
+                          <AvatarFallback>
+                            {(user.name || user.login).charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span className="font-semibold">{user.name || user.login}</span>
+                          <span className="text-sm text-muted-foreground">@{user.login}</span>
+                        </div>
                       </div>
                       
                       <div className="space-y-4">
