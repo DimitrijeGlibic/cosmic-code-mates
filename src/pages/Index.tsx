@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Homepage } from "@/components/Homepage";
 import { Feed } from "@/components/Feed";
 import { GitHubLogin } from "@/components/GitHubLogin";
@@ -6,6 +6,7 @@ import { useGitHub } from "@/lib/GitHubProvider";
 
 const Index = () => {
   const { isAuthenticated, user, isLoading } = useGitHub();
+  const [showLogin, setShowLogin] = useState(false);
 
   if (isLoading) {
     return (
@@ -22,13 +23,15 @@ const Index = () => {
     return <Feed />;
   }
 
-  // Show GitHub login if not authenticated
-  if (!isAuthenticated) {
-    return <GitHubLogin onSuccess={() => {}} />;
+  // Show GitHub login if not authenticated and user clicked login
+  if (!isAuthenticated && showLogin) {
+    return <GitHubLogin onSuccess={() => setShowLogin(false)} />;
   }
 
-  // This shouldn't happen, but fallback to homepage
-  return <Homepage onLogin={() => {}} />;
+  // Show homepage if not authenticated
+  if (!isAuthenticated) {
+    return <Homepage onLogin={() => setShowLogin(true)} />;
+  }
 };
 
 export default Index;
