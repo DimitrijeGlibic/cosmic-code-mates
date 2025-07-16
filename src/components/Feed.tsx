@@ -2,62 +2,22 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserCard } from "@/components/UserCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useGitHub } from "@/lib/GitHubProvider";
 import { Github, Rocket, LogOut, RefreshCw, Sparkles } from "lucide-react";
 
-interface FeedProps {
-  user: { username: string; avatar: string };
-  onLogout: () => void;
-}
+export function Feed() {
+  const { user, developers, isLoading, logout, refreshDevelopers } = useGitHub();
 
-// Mock data for demonstration
-const mockUsers = [
-  {
-    username: "octocat",
-    avatar: "https://github.com/octocat.png",
-    sharedRepos: 42,
-    personality: "A cosmic coder fluent in JavaScript and cat memes, navigating the GitHub galaxy with feline grace 🐱✨",
-    githubUrl: "https://github.com/octocat"
-  },
-  {
-    username: "torvalds",
-    avatar: "https://github.com/torvalds.png", 
-    sharedRepos: 7,
-    personality: "Kernel architect sailing through the C cosmos, building operating systems like stars form galaxies ⚡🌌",
-    githubUrl: "https://github.com/torvalds"
-  },
-  {
-    username: "gaearon",
-    avatar: "https://github.com/gaearon.png",
-    sharedRepos: 23,
-    personality: "React wizard conjuring user interfaces from the quantum realm of JSX and hooks 🪄⚛️",
-    githubUrl: "https://github.com/gaearon"
-  },
-  {
-    username: "sindresorhus",
-    avatar: "https://github.com/sindresorhus.png",
-    sharedRepos: 18,
-    personality: "Unicorn-powered developer crafting delightful tools across the npm constellation 🦄🌟",
-    githubUrl: "https://github.com/sindresorhus"
-  },
-  {
-    username: "addyosmani",
-    avatar: "https://github.com/addyosmani.png",
-    sharedRepos: 31,
-    personality: "Performance astronaut optimizing web experiences across infinite browser dimensions 🚀📊",
-    githubUrl: "https://github.com/addyosmani"
+  if (!user) {
+    return null; // This shouldn't happen as the component is only rendered when authenticated
   }
-];
-
-export function Feed({ user, onLogout }: FeedProps) {
-  const [users, setUsers] = useState(mockUsers);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleRefresh = async () => {
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setUsers([...mockUsers].sort(() => Math.random() - 0.5)); // Shuffle for demo
-    setIsLoading(false);
+    await refreshDevelopers();
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   const EmptyState = () => (
@@ -108,7 +68,7 @@ export function Feed({ user, onLogout }: FeedProps) {
               {/* Center - Welcome message */}
               <div className="hidden md:flex items-center space-x-3">
                 <span className="text-muted-foreground">Welcome,</span>
-                <span className="font-semibold">{user.username}</span>
+                <span className="font-semibold">{user.name || user.login}</span>
                 <span className="text-xl">👋</span>
               </div>
 
@@ -128,7 +88,7 @@ export function Feed({ user, onLogout }: FeedProps) {
                     <RefreshCw className="w-4 h-4" />
                   )}
                 </Button>
-                <Button variant="ghost" size="sm" onClick={onLogout}>
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
                   <LogOut className="w-4 h-4 mr-2" />
                   Logout
                 </Button>
@@ -139,18 +99,18 @@ export function Feed({ user, onLogout }: FeedProps) {
 
         {/* Feed content */}
         <main className="container mx-auto px-4 py-8">
-          {users.length === 0 ? (
+          {developers.length === 0 ? (
             <EmptyState />
           ) : (
             <div className="max-w-2xl mx-auto space-y-6">
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-semibold mb-2">Your Developer Universe</h2>
                 <p className="text-muted-foreground">
-                  {users.length} cosmic developers discovered based on your GitHub stars
+                  {developers.length} cosmic developers discovered based on your GitHub stars
                 </p>
               </div>
 
-              {users.map((feedUser, index) => (
+              {developers.map((feedUser, index) => (
                 <div 
                   key={feedUser.username}
                   style={{ animationDelay: `${index * 0.1}s` }}

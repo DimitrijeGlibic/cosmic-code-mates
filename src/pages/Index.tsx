@@ -1,30 +1,34 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Homepage } from "@/components/Homepage";
 import { Feed } from "@/components/Feed";
-
-// Mock user data for demo
-const mockUser = {
-  username: "dimitrijeglibic",
-  avatar: "https://github.com/dimitrijeglibic.png"
-};
+import { GitHubLogin } from "@/components/GitHubLogin";
+import { useGitHub } from "@/lib/GitHubProvider";
 
 const Index = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated, user, isLoading } = useGitHub();
 
-  const handleLogin = () => {
-    // In a real app, this would redirect to GitHub OAuth
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
-
-  if (isLoggedIn) {
-    return <Feed user={mockUser} onLogout={handleLogout} />;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-galaxy">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-muted-foreground">Connecting to the GitHub galaxy...</p>
+        </div>
+      </div>
+    );
   }
 
-  return <Homepage onLogin={handleLogin} />;
+  if (isAuthenticated && user) {
+    return <Feed />;
+  }
+
+  // Show GitHub login if not authenticated
+  if (!isAuthenticated) {
+    return <GitHubLogin onSuccess={() => {}} />;
+  }
+
+  // This shouldn't happen, but fallback to homepage
+  return <Homepage onLogin={() => {}} />;
 };
 
 export default Index;

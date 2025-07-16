@@ -8,10 +8,14 @@ import { Github, Star, Rocket, Users } from "lucide-react";
 import heroGalaxy from "@/assets/hero-galaxy.jpg";
 
 interface HomepageProps {
-  onLogin: () => void;
+  onLogin?: () => void;
 }
 
 export function Homepage({ onLogin }: HomepageProps) {
+  const handleGetStarted = () => {
+    // This will show the GitHubLogin component in the main app flow
+    onLogin?.();
+  };
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Starfield background */}
@@ -59,12 +63,11 @@ export function Homepage({ onLogin }: HomepageProps) {
               </p>
             </div>
 
-            {/* CTA Button */}
             <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
               <Button 
                 variant="hero" 
                 size="lg"
-                onClick={onLogin}
+                onClick={handleGetStarted}
                 className="text-xl px-12 py-6 h-auto"
               >
                 <Github className="w-6 h-6 mr-3" />
