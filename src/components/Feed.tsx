@@ -76,19 +76,6 @@ export function Feed() {
                 {/* Desktop Controls */}
                 <div className="hidden md:flex items-center space-x-3">
                   <StarCTA />
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={handleRefresh}
-                    disabled={isLoading}
-                    className="transition-cosmic"
-                  >
-                    {isLoading ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <RefreshCw className="w-4 h-4" />
-                    )}
-                  </Button>
                   
                   {/* User Avatar Dropdown */}
                   <DropdownMenu>
