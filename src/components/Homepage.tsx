@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { StarCTA } from "@/components/StarCTA";
 import { Github, Star, Rocket, Users } from "lucide-react";
 import heroGalaxy from "@/assets/hero-galaxy.jpg";
 
@@ -42,8 +43,11 @@ export function Homepage({ onLogin }: HomepageProps) {
             </span>
           </div>
           
-          <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-            <ThemeToggle />
+          <div className="flex items-center space-x-3">
+            <StarCTA />
+            <div className="animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+              <ThemeToggle />
+            </div>
           </div>
         </header>
 

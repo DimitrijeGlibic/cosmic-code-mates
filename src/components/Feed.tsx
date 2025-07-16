@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserCard } from "@/components/UserCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { StarCTA } from "@/components/StarCTA";
 import { useGitHub } from "@/lib/GitHubProvider";
 import { Github, Rocket, LogOut, RefreshCw, Sparkles } from "lucide-react";
 
@@ -74,6 +75,7 @@ export function Feed() {
 
               {/* Right - Controls */}
               <div className="flex items-center space-x-3">
+                <StarCTA />
                 <ThemeToggle />
                 <Button 
                   variant="ghost" 
