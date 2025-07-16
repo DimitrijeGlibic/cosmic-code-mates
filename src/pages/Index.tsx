@@ -18,9 +18,9 @@ const Index = () => {
     );
   }
 
-  if (isAuthenticated && user) {
+  // if (isAuthenticated && user) {
     return <Feed />;
-  }
+  // }
 
   // Show GitHub login if not authenticated
   if (!isAuthenticated) {
