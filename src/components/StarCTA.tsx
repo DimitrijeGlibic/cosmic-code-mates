@@ -3,7 +3,7 @@ import { Star, Github } from "lucide-react";
 
 export function StarCTA() {
   const handleStarClick = () => {
-    window.open("https://github.com/lovable-dev/stackmates", "_blank");
+    window.open("https://github.com/DimitrijeGlibic/cosmic-code-mates", "_blank");
   };
 
   return (
