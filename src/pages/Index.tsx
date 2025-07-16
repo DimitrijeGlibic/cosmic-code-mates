@@ -1,14 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Homepage } from "@/components/Homepage";
+import { Feed } from "@/components/Feed";
+
+// Mock user data for demo
+const mockUser = {
+  username: "dimitrijeglibic",
+  avatar: "https://github.com/dimitrijeglibic.png"
+};
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    // In a real app, this would redirect to GitHub OAuth
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  if (isLoggedIn) {
+    return <Feed user={mockUser} onLogout={handleLogout} />;
+  }
+
+  return <Homepage onLogin={handleLogin} />;
 };
 
 export default Index;

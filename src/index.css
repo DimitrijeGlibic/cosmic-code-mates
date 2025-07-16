@@ -8,35 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Space-themed color palette */
+    --background: 220 20% 98%;
+    --foreground: 230 15% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 25% 97%;
+    --card-foreground: 230 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 25% 97%;
+    --popover-foreground: 230 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 250 100% 70%;
+    --primary-foreground: 220 25% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 230 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 230 10% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 270 100% 85%;
+    --accent-foreground: 230 15% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 25% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 250 100% 70%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Space-themed custom colors */
+    --cosmic-purple: 270 100% 70%;
+    --cosmic-blue: 240 100% 75%;
+    --cosmic-teal: 180 100% 70%;
+    --stardust: 50 100% 85%;
+    --nebula: 300 80% 80%;
+
+    /* Gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(var(--cosmic-purple)), hsl(var(--cosmic-blue)));
+    --gradient-galaxy: linear-gradient(180deg, hsl(var(--background)), hsl(240 30% 95%));
+    --gradient-stardust: linear-gradient(45deg, hsl(var(--cosmic-blue)), hsl(var(--cosmic-teal)));
+    
+    /* Shadows with cosmic glow */
+    --shadow-cosmic: 0 10px 30px -10px hsl(var(--cosmic-purple) / 0.3);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px hsl(220 15% 0% / 0.08);
+
+    /* Animations */
+    --transition-cosmic: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-float: float 6s ease-in-out infinite;
+    --animation-glow: glow 2s ease-in-out infinite alternate;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +79,44 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark space theme */
+    --background: 230 25% 8%;
+    --foreground: 220 25% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 230 20% 12%;
+    --card-foreground: 220 25% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 230 20% 12%;
+    --popover-foreground: 220 25% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 250 100% 75%;
+    --primary-foreground: 230 25% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 230 15% 18%;
+    --secondary-foreground: 220 25% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 230 15% 15%;
+    --muted-foreground: 220 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 270 100% 80%;
+    --accent-foreground: 230 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 220 25% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 230 15% 20%;
+    --input: 230 15% 20%;
+    --ring: 250 100% 75%;
+
+    /* Dark mode gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(var(--cosmic-purple)), hsl(var(--cosmic-blue)));
+    --gradient-galaxy: linear-gradient(180deg, hsl(var(--background)), hsl(240 30% 15%));
+    --gradient-stardust: linear-gradient(45deg, hsl(var(--cosmic-blue)), hsl(var(--cosmic-teal)));
+    
+    /* Enhanced shadows for dark mode */
+    --shadow-cosmic: 0 10px 30px -10px hsl(var(--cosmic-purple) / 0.4);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 4px 20px hsl(230 25% 0% / 0.5);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,5 +135,85 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  /* Cosmic animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    from { box-shadow: var(--shadow-glow); }
+    to { box-shadow: 0 0 40px hsl(var(--primary) / 0.4); }
+  }
+
+  @keyframes starfield {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-100vh); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0px); }
+  }
+
+  /* Utility classes */
+  .gradient-cosmic {
+    background: var(--gradient-cosmic);
+  }
+
+  .gradient-galaxy {
+    background: var(--gradient-galaxy);
+  }
+
+  .gradient-stardust {
+    background: var(--gradient-stardust);
+  }
+
+  .shadow-cosmic {
+    box-shadow: var(--shadow-cosmic);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .animate-float {
+    animation: var(--animation-float);
+  }
+
+  .animate-glow {
+    animation: var(--animation-glow);
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .transition-cosmic {
+    transition: var(--transition-cosmic);
+  }
+
+  /* Starfield background */
+  .starfield {
+    position: absolute;
+    width: 100%;
+    height: 200vh;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, hsl(var(--primary) / 0.3), transparent),
+      radial-gradient(2px 2px at 40px 70px, hsl(var(--accent) / 0.2), transparent),
+      radial-gradient(1px 1px at 90px 40px, hsl(var(--cosmic-teal) / 0.3), transparent),
+      radial-gradient(1px 1px at 130px 80px, hsl(var(--cosmic-purple) / 0.2), transparent),
+      radial-gradient(2px 2px at 160px 30px, hsl(var(--stardust) / 0.3), transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: starfield 100s linear infinite;
+    opacity: 0.6;
   }
 }

@@ -61,7 +61,27 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				cosmic: {
+					purple: 'hsl(var(--cosmic-purple))',
+					blue: 'hsl(var(--cosmic-blue))',
+					teal: 'hsl(var(--cosmic-teal))',
+				},
+				stardust: 'hsl(var(--stardust))',
+				nebula: 'hsl(var(--nebula))'
+			},
+			fontFamily: {
+				mono: ['JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace'],
+			},
+			backgroundImage: {
+				'gradient-cosmic': 'var(--gradient-cosmic)',
+				'gradient-galaxy': 'var(--gradient-galaxy)',
+				'gradient-stardust': 'var(--gradient-stardust)',
+			},
+			boxShadow: {
+				'cosmic': 'var(--shadow-cosmic)',
+				'glow': 'var(--shadow-glow)',
+				'card': 'var(--shadow-card)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
