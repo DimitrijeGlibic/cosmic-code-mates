@@ -1,5 +1,5 @@
 <p align="center">
-  <b><a href="https://www.tensorzero.com/" target="_blank">Website</a></b>
+  <b><a href="https://cosmic-code-mates.lovable.app/" target="_blank">Website</a></b>
 </p>
 
 # 🌌 Cosmic Code Mates
