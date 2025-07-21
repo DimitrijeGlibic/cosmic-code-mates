@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Github, Star, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface UserCardProps {
   user: {
@@ -15,12 +16,21 @@ interface UserCardProps {
 }
 
 export function UserCard({ user }: UserCardProps) {
+  const navigate = useNavigate();
+
   const handleViewProfile = () => {
     window.open(user.githubUrl, '_blank');
   };
 
+  const handleCardClick = () => {
+    navigate(`/user/${user.username}`);
+  };
+
   return (
-    <Card className="shadow-card hover:shadow-cosmic transition-cosmic hover:scale-[1.02] bg-card/80 backdrop-blur-sm border-border/50 animate-fadeIn">
+    <Card 
+      className="shadow-card hover:shadow-cosmic transition-cosmic hover:scale-[1.02] bg-card/80 backdrop-blur-sm border-border/50 animate-fadeIn cursor-pointer"
+      onClick={handleCardClick}
+    >
       <CardContent className="p-6">
         <div className="flex items-start space-x-4">
           <Avatar className="w-16 h-16 shadow-glow animate-float">
@@ -53,7 +63,10 @@ export function UserCard({ user }: UserCardProps) {
               variant="github" 
               size="sm" 
               className="w-full transition-cosmic hover:shadow-glow" 
-              onClick={handleViewProfile}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleViewProfile();
+              }}
             >
               <Github className="w-4 h-4 mr-2" />
               View GitHub Profile

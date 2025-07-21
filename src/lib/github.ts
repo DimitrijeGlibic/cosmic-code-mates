@@ -9,6 +9,8 @@ export interface GitHubUser {
   followers: number;
   following: number;
   html_url: string;
+  location?: string;
+  created_at: string;
 }
 
 export interface GitHubRepo {
@@ -20,6 +22,7 @@ export interface GitHubRepo {
   language: string;
   html_url: string;
   topics: string[];
+  forks_count: number;
 }
 
 export interface StackmatesUser {
