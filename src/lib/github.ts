@@ -67,7 +67,7 @@ class GitHubAPI {
     return this.request<GitHubUser>('/user');
   }
 
-  async getUserStarredRepos(username: string, maxRepos = 500): Promise<GitHubRepo[]> {
+  async getUserStarredRepos(username: string, maxRepos = 5000): Promise<GitHubRepo[]> {
     const allRepos: GitHubRepo[] = [];
     let page = 1;
     const perPage = 100; // GitHub's max per page
