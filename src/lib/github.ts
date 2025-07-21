@@ -67,8 +67,34 @@ class GitHubAPI {
     return this.request<GitHubUser>('/user');
   }
 
-  async getUserStarredRepos(username: string, perPage = 100): Promise<GitHubRepo[]> {
-    return this.request<GitHubRepo[]>(`/users/${username}/starred?per_page=${perPage}`);
+  async getUserStarredRepos(username: string, maxRepos = 500): Promise<GitHubRepo[]> {
+    const allRepos: GitHubRepo[] = [];
+    let page = 1;
+    const perPage = 100; // GitHub's max per page
+    
+    while (allRepos.length < maxRepos) {
+      try {
+        const repos = await this.request<GitHubRepo[]>(`/users/${username}/starred?per_page=${perPage}&page=${page}`);
+        
+        if (repos.length === 0) {
+          // No more repos to fetch
+          break;
+        }
+        
+        allRepos.push(...repos);
+        page++;
+        
+        // If we got less than perPage, we've reached the end
+        if (repos.length < perPage) {
+          break;
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch page ${page} of starred repos for ${username}:`, error);
+        break;
+      }
+    }
+    
+    return allRepos.slice(0, maxRepos);
   }
 
   async getUser(username: string): Promise<GitHubUser> {
