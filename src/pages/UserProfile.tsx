@@ -37,25 +37,22 @@ export default function UserProfile() {
       try {
         console.log('Fetching user data for:', username);
         
-        // Fetch user profile
-        const user = await githubAPI.getUser(username);
-        setProfileUser(user);
-        console.log('User profile fetched successfully');
+        // Fetch all data in parallel for better performance
+        const [user, repos, currentUserStarred, userStarred] = await Promise.all([
+          githubAPI.getUser(username),
+          githubAPI.getUserRepos(username, 50),
+          githubAPI.getUserStarredRepos(currentUser.login),
+          githubAPI.getUserStarredRepos(username)
+        ]);
 
-        // Fetch user's repositories
-        const repos = await githubAPI.getUserRepos(username, 50);
-        setUserRepos(repos);
+        console.log('All data fetched successfully');
         console.log('User repos fetched:', repos.length);
-
-        // Fetch current user's starred repos to find shared ones
-        console.log('Fetching starred repos for current user:', currentUser.login);
-        const currentUserStarred = await githubAPI.getUserStarredRepos(currentUser.login);
-        
-        console.log('Fetching starred repos for profile user:', username);
-        const userStarred = await githubAPI.getUserStarredRepos(username);
-        
         console.log('Current user starred repos:', currentUserStarred.length);
         console.log('Profile user starred repos:', userStarred.length);
+        
+        // Set the data
+        setProfileUser(user);
+        setUserRepos(repos);
         
         // Debug: Log some repo IDs to see if there's overlap
         console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
