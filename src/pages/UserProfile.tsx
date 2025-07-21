@@ -27,6 +27,8 @@ export default function UserProfile() {
   const [profileUser, setProfileUser] = useState<GitHubUser | null>(null);
   const [sharedRepos, setSharedRepos] = useState<GitHubRepo[]>([]);
   const [userRepos, setUserRepos] = useState<GitHubRepo[]>([]);
+  const [currentUserStarred, setCurrentUserStarred] = useState<GitHubRepo[]>([]);
+  const [profileUserStarred, setProfileUserStarred] = useState<GitHubRepo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -53,19 +55,8 @@ export default function UserProfile() {
         // Set the data
         setProfileUser(user);
         setUserRepos(repos);
-        
-        // Debug: Log some repo IDs to see if there's overlap
-        console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
-        console.log('Sample profile user starred repo IDs:', userStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
-        
-        // Find repositories that both users have starred - using full_name for comparison
-        const shared = currentUserStarred.filter(starredRepo =>
-          userStarred.some(userRepo => userRepo.full_name === starredRepo.full_name)
-        );
-        
-        console.log('Shared starred repos:', shared.length);
-        console.log('Shared repos details:', shared.map(r => `${r.id}:${r.full_name}`));
-        setSharedRepos(shared);
+        setCurrentUserStarred(currentUserStarred);
+        setProfileUserStarred(userStarred);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -75,6 +66,30 @@ export default function UserProfile() {
 
     fetchUserData();
   }, [username, currentUser]);
+
+  // Separate useEffect for calculating shared repos
+  useEffect(() => {
+    // Early return if data not ready
+    if (!currentUserStarred.length || !profileUserStarred.length) {
+      console.log('Shared repos calculation skipped - data not ready');
+      console.log('Current user starred length:', currentUserStarred.length);
+      console.log('Profile user starred length:', profileUserStarred.length);
+      return;
+    }
+
+    console.log('Calculating shared repos...');
+    console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
+    console.log('Sample profile user starred repo IDs:', profileUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
+    
+    // Find repositories that both users have starred - using full_name for comparison
+    const shared = currentUserStarred.filter(starredRepo =>
+      profileUserStarred.some(userRepo => userRepo.full_name === starredRepo.full_name)
+    );
+    
+    console.log('Shared starred repos:', shared.length);
+    console.log('Shared repos details:', shared.map(r => `${r.id}:${r.full_name}`));
+    setSharedRepos(shared);
+  }, [currentUserStarred, profileUserStarred]);
 
   if (isLoading) {
     return (
