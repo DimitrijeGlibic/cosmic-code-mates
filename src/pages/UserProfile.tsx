@@ -45,11 +45,17 @@ export default function UserProfile() {
 
         // Fetch current user's starred repos to find shared ones
         const currentUserStarred = await githubAPI.getUserStarredRepos(currentUser.login);
+        const userStarred = await githubAPI.getUserStarredRepos(username);
         
-        // Find repositories that current user starred that this user also starred
+        console.log('Current user starred repos:', currentUserStarred.length);
+        console.log('Profile user starred repos:', userStarred.length);
+        
+        // Find repositories that both users have starred
         const shared = currentUserStarred.filter(starredRepo =>
-          repos.some(userRepo => userRepo.id === starredRepo.id)
+          userStarred.some(userRepo => userRepo.id === starredRepo.id)
         );
+        
+        console.log('Shared starred repos:', shared.length);
         setSharedRepos(shared);
       } catch (error) {
         console.error("Error fetching user data:", error);
