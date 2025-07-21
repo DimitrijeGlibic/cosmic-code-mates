@@ -78,8 +78,8 @@ export default function UserProfile() {
     }
 
     console.log('Calculating shared repos...');
-    console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
-    console.log('Sample profile user starred repo IDs:', profileUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
+    console.log('Sample current user starred repo IDs:', currentUserStarred.map(r => `${r.id}:${r.full_name}`));
+    console.log('Sample profile user starred repo IDs:', profileUserStarred.map(r => `${r.id}:${r.full_name}`));
     
     // Find repositories that both users have starred - using full_name for comparison
     const shared = currentUserStarred.filter(starredRepo =>
