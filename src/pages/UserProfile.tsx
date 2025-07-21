@@ -61,9 +61,9 @@ export default function UserProfile() {
         console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
         console.log('Sample profile user starred repo IDs:', userStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
         
-        // Find repositories that both users have starred
+        // Find repositories that both users have starred - using full_name for comparison
         const shared = currentUserStarred.filter(starredRepo =>
-          userStarred.some(userRepo => userRepo.id === starredRepo.id)
+          userStarred.some(userRepo => userRepo.full_name === starredRepo.full_name)
         );
         
         console.log('Shared starred repos:', shared.length);
