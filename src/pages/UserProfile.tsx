@@ -35,20 +35,31 @@ export default function UserProfile() {
       
       setIsLoading(true);
       try {
+        console.log('Fetching user data for:', username);
+        
         // Fetch user profile
         const user = await githubAPI.getUser(username);
         setProfileUser(user);
+        console.log('User profile fetched successfully');
 
         // Fetch user's repositories
         const repos = await githubAPI.getUserRepos(username, 50);
         setUserRepos(repos);
+        console.log('User repos fetched:', repos.length);
 
         // Fetch current user's starred repos to find shared ones
+        console.log('Fetching starred repos for current user:', currentUser.login);
         const currentUserStarred = await githubAPI.getUserStarredRepos(currentUser.login);
+        
+        console.log('Fetching starred repos for profile user:', username);
         const userStarred = await githubAPI.getUserStarredRepos(username);
         
         console.log('Current user starred repos:', currentUserStarred.length);
         console.log('Profile user starred repos:', userStarred.length);
+        
+        // Debug: Log some repo IDs to see if there's overlap
+        console.log('Sample current user starred repo IDs:', currentUserStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
+        console.log('Sample profile user starred repo IDs:', userStarred.slice(0, 5).map(r => `${r.id}:${r.full_name}`));
         
         // Find repositories that both users have starred
         const shared = currentUserStarred.filter(starredRepo =>
@@ -56,6 +67,7 @@ export default function UserProfile() {
         );
         
         console.log('Shared starred repos:', shared.length);
+        console.log('Shared repos details:', shared.map(r => `${r.id}:${r.full_name}`));
         setSharedRepos(shared);
       } catch (error) {
         console.error("Error fetching user data:", error);
